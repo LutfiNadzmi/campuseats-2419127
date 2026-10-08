@@ -12,7 +12,7 @@ Add a new section every week, before you tag. Did not use AI? Write "None" under
 
 ## Week 2
 
-- Tool(s):
-- What I asked for:
-- What I kept, changed or rejected, and why:
-- One thing the AI got wrong and how I fixed it:
+- Tool(s):ChatGPT
+- What I asked for: Explanation for this week code and to instafill food menu in vendors.js
+- What I kept, changed or rejected, and why: Kept the food menu in vendors.js
+- One thing the AI got wrong and how I fixed it: None
