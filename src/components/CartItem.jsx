@@ -1,6 +1,6 @@
 // One row in the cart. It shows data and reports clicks upward; it owns no state.
-function CartItem({ line, onChangeQty, onRemove }) {
-  const { item, qty } = line;
+function CartItem({ line, onChangeQty, onRemove, onChangeNote }) {
+  const { item, qty, note } = line;
 
   return (
     <li className="cart-line">
@@ -25,6 +25,13 @@ function CartItem({ line, onChangeQty, onRemove }) {
       >
         Remove
       </button>
+      <textarea
+        className="cart-note"
+        rows={2}
+        placeholder="Note for this item (e.g. no sambal, less sugar)"
+        value={note}
+        onChange={(e) => onChangeNote(item.id, e.target.value)}
+      />
     </li>
   );
 }

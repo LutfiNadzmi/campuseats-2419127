@@ -53,7 +53,7 @@ function App() {
           line.item.id === item.id ? { ...line, qty: line.qty + 1 } : line,
         );
       }
-      return [...prevCart, { item, qty: 1 }]; // new line
+      return [...prevCart, { item, qty: 1, note: "" }]; // new line
     });
   }
 
@@ -71,13 +71,20 @@ function App() {
   function handleRemove(itemId) {
     setCart((prevCart) => prevCart.filter((line) => line.item.id !== itemId));
   }
+  function handleChangeNote(itemId, note) {
+    setCart((prevCart) =>
+      prevCart.map((line) =>
+        line.item.id === itemId ? { ...line, note } : line,
+      ),
+    );
+  }
   function handlePlaceOrder(details) {
     // same reduce as CartPage
     const total = cart.reduce(
       (sum, line) => sum + line.item.price * line.qty,
       0,
     );
-    setLastOrder({ ...details, total });
+    setLastOrder({ ...details, total, lines: cart });
     setCart([]);
     setView("done");
   }
@@ -91,6 +98,7 @@ function App() {
         cart={cart}
         onChangeQty={handleChangeQty}
         onRemove={handleRemove}
+        onChangeNote={handleChangeNote}
         onPlaceOrder={handlePlaceOrder}
       />
     );
@@ -101,6 +109,14 @@ function App() {
         {lastOrder && (
           <>
             <p>Thank you, {lastOrder.name}!</p>
+            <ul>
+              {lastOrder.lines.map((line) => (
+                <li key={line.item.id}>
+                  {line.qty} × {line.item.name}
+                  {line.note && ` (Note: ${line.note})`}
+                </li>
+              ))}
+            </ul>
             <p>Mahallah: {lastOrder.mahallah}</p>
             <p>Pickup time: {lastOrder.pickupTime}</p>
             <p>Total: RM {lastOrder.total.toFixed(2)}</p>

@@ -1,7 +1,7 @@
 import CartItem from "./CartItem.jsx";
 import CheckoutForm from "./CheckoutForm.jsx";
 
-function CartPage({ cart, onChangeQty, onRemove, onPlaceOrder }) {
+function CartPage({ cart, onChangeQty, onRemove, onChangeNote, onPlaceOrder }) {
   if (cart.length === 0) {
     return (
       <p className="muted">
@@ -23,6 +23,7 @@ function CartPage({ cart, onChangeQty, onRemove, onPlaceOrder }) {
               line={line}
               onChangeQty={onChangeQty}
               onRemove={onRemove}
+              onChangeNote={onChangeNote}
             />
           ))}
         </ul>
