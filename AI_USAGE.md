@@ -16,3 +16,10 @@ Add a new section every week, before you tag. Did not use AI? Write "None" under
 - What I asked for: Explanation for this week code and to instafill food menu in vendors.js
 - What I kept, changed or rejected, and why: Kept the food menu in vendors.js
 - One thing the AI got wrong and how I fixed it: None
+
+## Week 3
+
+- Tool(s): Claude
+- What I asked for: Step-by-step help with the Lab 3 sheet: converting vendors.js to JSON (and adding more menu items and shops), fetching with useEffect, the cart with quantities, the cart page, the checkout form with validation, and my digit-7 feature (order notes per item).
+- What I kept, changed or rejected, and why: I kept the structure the lab sheet gave (lifted cart state, derived total and badge with reduce, validate() returning an errors object). I changed the placeholder shops and my own restaurant's data to match my menu, and saved the cart lines in lastOrder so the notes show on the "Order placed" page.
+- One thing the AI got wrong and how I fixed it: It left a placeholder, `content = ( ...vendor cards and menu... )`, in the App.jsx code it gave me, which caused a Vite parse error. After I fixed that, there was a duplicate block of code that overwrote `content`, so clicking Cart appeared to do nothing. I read through the if/else chain, found the duplicate block and deleted it.
