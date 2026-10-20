@@ -1,0 +1,155 @@
+[
+  {
+    "id": "2419127-kafe-uthman",
+    "name": "Kafe Mahallah Uthman",
+    "location": "Mahallah Uthman, Block D",
+    "openHours": "7:00 am - 10:00 pm",
+    "isOpen": true,
+    "menu": [
+      {
+        "id": "2419127-m1",
+        "name": "Nasi Lemak Ayam Berempah",
+        "description": "Fragrant coconut rice served with spiced fried chicken, sambal, boiled egg, and peanuts",
+        "price": 8.5,
+        "category": "Rice",
+        "popular": true,
+        "available": true
+      },
+      {
+        "id": "2419127-m2",
+        "name": "Mee Goreng Mamak",
+        "description": "Wok fried yellow noodles with tofu, fritters, and bean sprouts in spicy-sweet sauce",
+        "price": 6.5,
+        "category": "Noodles",
+        "popular": true,
+        "available": true
+      },
+      {
+        "id": "2419127-m3",
+        "name": "Teh Tarik",
+        "description": "Chilled pulled milk tea with rich froth",
+        "price": 2.8,
+        "category": "Drinks",
+        "popular": true,
+        "available": true
+      },
+      {
+        "id": "2419127-m4",
+        "name": "Roti Canai Banjir",
+        "description": "Two pieces of crispy flatbread drenched in mixed dhal and sambal",
+        "price": 3.5,
+        "category": "Roti",
+        "popular": false,
+        "available": false
+      },
+      {
+        "id": "2419127-m5",
+        "name": "Nasi Goreng Kampung",
+        "description": "Village-style fried rice with anchovies, kangkung and a fried egg",
+        "price": 6,
+        "category": "Rice",
+        "popular": false,
+        "available": true
+      },
+      {
+        "id": "2419127-m6",
+        "name": "Kuey Teow Goreng",
+        "description": "Flat rice noodles stir-fried with prawns, egg and chives",
+        "price": 7,
+        "category": "Noodles",
+        "popular": true,
+        "available": true
+      },
+      {
+        "id": "2419127-m7",
+        "name": "Milo Ais",
+        "description": "Iced chocolate malt drink, extra creamy",
+        "price": 2.5,
+        "category": "Drinks",
+        "popular": false,
+        "available": true
+      },
+      {
+        "id": "2419127-m8",
+        "name": "Roti Telur",
+        "description": "Crispy flatbread folded around a fluffy egg, served with dhal",
+        "price": 3,
+        "category": "Roti",
+        "popular": false,
+        "available": true
+      },
+      {
+        "id": "2419127-m9",
+        "name": "Cendol",
+        "description": "Shaved ice with pandan jelly, red beans, coconut milk and gula Melaka",
+        "price": 3.5,
+        "category": "Dessert",
+        "popular": false,
+        "available": true
+      }
+    ]
+  },
+  {
+    "id": "2419127-kafe-aminah",
+    "name": "Kafe Mahallah Aminah",
+    "location": "Mahallah Aminah, Ground Floor",
+    "openHours": "8:00 am - 9:00 pm",
+    "isOpen": true,
+    "menu": [
+      {
+        "id": "2419127-a1",
+        "name": "Nasi Ayam Penyet",
+        "description": "Smashed fried chicken with sambal and rice",
+        "price": 9,
+        "category": "Rice",
+        "popular": true,
+        "available": true
+      },
+      {
+        "id": "2419127-a2",
+        "name": "Air Bandung",
+        "description": "Rose syrup with milk",
+        "price": 3,
+        "category": "Drinks",
+        "popular": true,
+        "available": true
+      },
+      {
+        "id": "2419127-a3",
+        "name": "Mee Rebus",
+        "description": "Yellow noodles in sweet potato gravy with egg and lime",
+        "price": 6,
+        "category": "Noodles",
+        "popular": false,
+        "available": true
+      }
+    ]
+  },
+  {
+    "id": "2419127-kafe-farouq",
+    "name": "Kafe Mahallah Farouq",
+    "location": "Mahallah Farouq, Ground Floor",
+    "openHours": "8:00 am - 11:00 pm",
+    "isOpen": true,
+    "menu": [
+      {
+        "id": "2419127-k1",
+        "name": "Kopi O Ais",
+        "description": "Iced black coffee with a little sugar",
+        "price": 2.5,
+        "category": "Drinks",
+        "popular": true,
+        "available": true
+      },
+      {
+        "id": "2419127-k2",
+        "name": "Roti Bakar Kaya",
+        "description": "Toasted bread with coconut egg jam and butter",
+        "price": 3,
+        "category": "Snacks",
+        "popular": true,
+        "available": true
+      }
+    ]
+  }
+]
