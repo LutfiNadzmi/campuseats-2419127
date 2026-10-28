@@ -1,5 +1,7 @@
-// One row in the cart. It shows data and reports clicks upward; it owns no state.
-function CartItem({ line, onChangeQty, onRemove, onChangeNote }) {
+import { useCart } from "../hooks/useCart.js";
+
+function CartItem({ line }) {
+  const { changeQty, removeFromCart, changeNote } = useCart();
   const { item, qty, note } = line;
 
   return (
@@ -9,11 +11,11 @@ function CartItem({ line, onChangeQty, onRemove, onChangeNote }) {
         <p className="muted">RM {item.price.toFixed(2)} each</p>
       </div>
       <div className="qty">
-        <button type="button" onClick={() => onChangeQty(item.id, -1)}>
+        <button type="button" onClick={() => changeQty(item.id, -1)}>
           −
         </button>
         <span>{qty}</span>
-        <button type="button" onClick={() => onChangeQty(item.id, 1)}>
+        <button type="button" onClick={() => changeQty(item.id, 1)}>
           +
         </button>
       </div>
@@ -21,7 +23,7 @@ function CartItem({ line, onChangeQty, onRemove, onChangeNote }) {
       <button
         type="button"
         className="link danger"
-        onClick={() => onRemove(item.id)}
+        onClick={() => removeFromCart(item.id)}
       >
         Remove
       </button>
@@ -30,7 +32,7 @@ function CartItem({ line, onChangeQty, onRemove, onChangeNote }) {
         rows={2}
         placeholder="Note for this item (e.g. no sambal, less sugar)"
         value={note}
-        onChange={(e) => onChangeNote(item.id, e.target.value)}
+        onChange={(e) => changeNote(item.id, e.target.value)}
       />
     </li>
   );

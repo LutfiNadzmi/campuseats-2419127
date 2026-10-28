@@ -1,169 +1,27 @@
-import { useEffect, useState } from "react";
-import Header from "./components/Header.jsx";
-import VendorCard from "./components/VendorCard.jsx";
-import MenuList from "./components/MenuList.jsx";
-import Footer from "./components/Footer.jsx";
-import { Loading, ErrorMessage } from "./components/Status.jsx";
-import CartPage from "./components/CartPage.jsx";
+import { BrowserRouter, Routes, Route } from "react-router";
+import { CartProvider } from "./context/CartProvider.jsx";
+import Layout from "./components/Layout.jsx";
+import HomePage from "./pages/HomePage.jsx";
+import VendorPage from "./pages/VendorPage.jsx";
+import CartPage from "./pages/CartPage.jsx";
+import OrdersPage from "./pages/OrdersPage.jsx";
+import NotFoundPage from "./pages/NotFoundPage.jsx";
 
 function App() {
-  const [vendors, setVendors] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [reloadKey, setReloadKey] = useState(0);
-  const [selectedVendorId, setSelectedVendorId] = useState(null);
-  const [cart, setCart] = useState([]);
-  const [view, setView] = useState("menu"); // 'menu' | 'cart' | 'done'
-  const [lastOrder, setLastOrder] = useState(null);
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    fetch("/api/vendors.json", { signal: controller.signal })
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json();
-      })
-      .then((data) => {
-        setVendors(data);
-        setSelectedVendorId(data[0].id); // select the first vendor
-      })
-      .catch((err) => {
-        if (err.name !== "AbortError") setError(err.message);
-      })
-      .finally(() => {
-        if (!controller.signal.aborted) setLoading(false);
-      });
-
-    return () => controller.abort(); // cleanup
-  }, [reloadKey]); // changing reloadKey runs the fetch again
-
-  function handleRetry() {
-    setLoading(true);
-    setError(null);
-    setReloadKey((k) => k + 1);
-  }
-
-  function handleAddToCart(item) {
-    setCart((prevCart) => {
-      const existing = prevCart.find((line) => line.item.id === item.id);
-      if (existing) {
-        // same item again: bump its qty
-        return prevCart.map((line) =>
-          line.item.id === item.id ? { ...line, qty: line.qty + 1 } : line,
-        );
-      }
-      return [...prevCart, { item, qty: 1, note: "" }]; // new line
-    });
-  }
-
-  function handleChangeQty(itemId, delta) {
-    setCart(
-      (prevCart) =>
-        prevCart
-          .map((line) =>
-            line.item.id === itemId ? { ...line, qty: line.qty + delta } : line,
-          )
-          .filter((line) => line.qty > 0), // qty 0 removes the line
-    );
-  }
-
-  function handleRemove(itemId) {
-    setCart((prevCart) => prevCart.filter((line) => line.item.id !== itemId));
-  }
-  function handleChangeNote(itemId, note) {
-    setCart((prevCart) =>
-      prevCart.map((line) =>
-        line.item.id === itemId ? { ...line, note } : line,
-      ),
-    );
-  }
-  function handlePlaceOrder(details) {
-    // same reduce as CartPage
-    const total = cart.reduce(
-      (sum, line) => sum + line.item.price * line.qty,
-      0,
-    );
-    setLastOrder({ ...details, total, lines: cart });
-    setCart([]);
-    setView("done");
-  }
-  const selectedVendor = vendors.find((v) => v.id === selectedVendorId);
-  const cartCount = cart.reduce((sum, line) => sum + line.qty, 0);
-
-  let content;
-  if (view === "cart") {
-    content = (
-      <CartPage
-        cart={cart}
-        onChangeQty={handleChangeQty}
-        onRemove={handleRemove}
-        onChangeNote={handleChangeNote}
-        onPlaceOrder={handlePlaceOrder}
-      />
-    );
-  } else if (view === "done") {
-    content = (
-      <div className="card">
-        <h2>Order placed</h2>
-        {lastOrder && (
-          <>
-            <p>Thank you, {lastOrder.name}!</p>
-            <ul>
-              {lastOrder.lines.map((line) => (
-                <li key={line.item.id}>
-                  {line.qty} × {line.item.name}
-                  {line.note && ` (Note: ${line.note})`}
-                </li>
-              ))}
-            </ul>
-            <p>Mahallah: {lastOrder.mahallah}</p>
-            <p>Pickup time: {lastOrder.pickupTime}</p>
-            <p>Total: RM {lastOrder.total.toFixed(2)}</p>
-          </>
-        )}
-      </div>
-    );
-  } else if (loading) {
-    content = <Loading />;
-  } else if (error) {
-    content = <ErrorMessage message={error} onRetry={handleRetry} />;
-  } else {
-    content = (
-      <>
-        <section>
-          <h2 className="section-title">Choose a vendor</h2>
-          <div className="vendor-grid">
-            {vendors.map((vendor) => (
-              <VendorCard
-                key={vendor.id}
-                vendor={vendor}
-                isSelected={vendor.id === selectedVendorId}
-                onSelect={setSelectedVendorId}
-              />
-            ))}
-          </div>
-        </section>
-        {selectedVendor && (
-          <section>
-            <h2 className="section-title">Menu: {selectedVendor.name}</h2>
-            <MenuList items={selectedVendor.menu} onAdd={handleAddToCart} />
-          </section>
-        )}
-      </>
-    );
-  }
-
   return (
-    <>
-      <Header
-        cartCount={cartCount}
-        onShowMenu={() => setView("menu")}
-        onShowCart={() => setView("cart")}
-      />
-      <main className="container">{content}</main>
-      <Footer />
-    </>
+    <BrowserRouter>
+      <CartProvider>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route index element={<HomePage />} />
+            <Route path="vendor/:id" element={<VendorPage />} />
+            <Route path="cart" element={<CartPage />} />
+            <Route path="orders" element={<OrdersPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Route>
+        </Routes>
+      </CartProvider>
+    </BrowserRouter>
   );
 }
 
